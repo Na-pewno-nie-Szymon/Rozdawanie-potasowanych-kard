@@ -34,8 +34,14 @@ try:
 
         for klucz in gracze:
             kolor = random.randint(0, 3)
+            
+            licz = 0
             while len(karty[kolor]) == 1:
-                kolor = random.randint(0, 3)
+                kolor = (kolor + 1) % 4
+                licz += 1
+                if licz == 4:
+                    raise ValueError
+            
             karta = random.randint(1, len(karty[kolor])-1)
             gracze[klucz].append(f'{karty[kolor][0]}{karty[kolor].pop(karta)}')
 except ValueError:
@@ -43,5 +49,6 @@ except ValueError:
         print(f'{gracz}: {gracze[gracz]}')
     print()
     print('T - Trefl\nP - Pik\nKa - Karo\nKi - Kier')
+    print(karty)
 except Exception as e:
     print(f'Error: {e}')
